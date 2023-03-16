@@ -10,7 +10,8 @@ class categories extends Model
 {
     use HasFactory;
     protected $hidden = ['id', 'created_at', 'updated_at'];
-    
+    protected $fillable=[  'category' ];
+
     public function books(){
         $this->hasMany(books::class);
     }

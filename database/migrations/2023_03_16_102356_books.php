@@ -18,6 +18,8 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string("image");
+            $table->string("isbn");
+            $table->string("auteur");
             $table->text('description');
             $table->float('price');
             $table->unsignedBigInteger('category_id');
