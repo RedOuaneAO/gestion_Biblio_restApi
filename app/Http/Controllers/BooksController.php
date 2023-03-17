@@ -21,7 +21,7 @@ class BooksController extends Controller
             'description'=>$req->description,
             'price'=>$req->price,
             'category_id'=>$req->category_id,
-            'user_id'=>$req->user_id,
+            'user_id'=>$req->user()->id,
             'image'=>$imgName
         ]);
         return response()->json([
@@ -32,20 +32,19 @@ class BooksController extends Controller
     public function showBook($id){
         // $data = books::with('category')->findOrFail($id);
         $data = books::with('category')->find($id);
-        $result = ($data) ? response()->json($data, 200) : response()->json(['message' => "the Book you'r looking form doesn't exist!",]);
-        return $result;
+        $response = ($data) ? response()->json($data, 200) : response()->json(['message' => "the Book you'r looking form doesn't exist!",]);
+        return $response;
     }
     public function updateBook(request $req , $id){
         $data = books::find($id);
         $imgName=$req->file('image')->getClientOriginalName();
         $req->file('image')->move(public_path('img'), $imgName);
-        $data ->image=$imgName;        
         $data->update([
             'title'=>$req->title,
             'description'=>$req->description,
             'price'=>$req->price,
             'category_id'=>$req->category_id,
-            'user_id'=>$req->user_id,
+            'user_id'=>$req->user()->id,
             'image'=>$imgName
         ]);
         return response()->json(['message' => "the book has been updated successfully", 'book'=>$data]);

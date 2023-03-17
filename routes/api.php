@@ -37,5 +37,6 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('register', 'register');
     Route::post('logout', 'logout');
     Route::post('refresh', 'refresh');
+    Route::put('updateProfile', 'updateProfile');
     // Route::get('me', 'me');
 });

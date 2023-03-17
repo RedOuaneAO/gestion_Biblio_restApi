@@ -88,4 +88,23 @@ class AuthController extends Controller
             ]
         ]);
     }
+    public function updateProfile(Request $request){
+        $user=Auth::user(); 
+        $user->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ]);
+        return response()->json([
+            'success' => 'You Profile Has Been Updated Successfuly',
+        ]);
+    }
+    // public function deleteProfile(Request $request){
+    //     $user=Auth::user(); 
+    //     $user->delete();
+    //     return response()->json([
+    //         'success' => 'You Profile Has Been Updated Successfuly',
+    //     ]);
+    // }
+    
 }
