@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BooksController;
 use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\AuthController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -17,18 +18,24 @@ use App\Http\Controllers\CategoriesController;
 
 
 Route::controller(BooksController::class)->group(function () {
-
-    Route::get('/index' , [BooksController::class , "index"]);
-    Route::post('/addBooks' , [BooksController::class , "addBook"]);
-    Route::get('/showBook/{id}' , [BooksController::class , "showBook"]);
-    Route::delete('/deleteBook/{id}' , [BooksController::class , "deleteBook"]);
-    Route::put('/updateBook/{id}' , [BooksController::class , "updateBook"]);
+    Route::get('/index' ,"index");
+    Route::post('/addBooks' ,"addBook");
+    Route::get('/showBook/{id}' ,"showBook");
+    Route::delete('/deleteBook/{id}' ,"deleteBook");
+    Route::put('/updateBook/{id}' ,"updateBook");
 });
 Route::controller(CategoriesController::class)->group(function () {
+    Route::get('/displayCategories' , 'displayCategories');
+    Route::post('/addCategory' , "addCategory");
+    Route::get('/showCategory/{id}' ,"showCategory");
+    Route::delete('/deleteCategory/{id}' ,  "deleteCategory");
+    Route::put('/updateCategory/{id}' , "updateCategory");
+});
 
-    Route::get('/displayCategories' , [CategoriesController::class , "displayCategories"]);
-    Route::post('/addCategory' , [CategoriesController::class , "addCategory"]);
-    Route::get('/showCategory/{id}' , [CategoriesController::class , "showCategory"]);
-    Route::delete('/deleteCategory/{id}' , [CategoriesController::class , "deleteCategory"]);
-    Route::put('/updateCategory/{id}' , [CategoriesController::class , "updateCategory"]);
+Route::controller(AuthController::class)->group(function () {
+    Route::post('login', 'login');
+    Route::post('register', 'register');
+    Route::post('logout', 'logout');
+    Route::post('refresh', 'refresh');
+    // Route::get('me', 'me');
 });
