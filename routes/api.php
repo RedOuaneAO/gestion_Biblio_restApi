@@ -18,18 +18,18 @@ use App\Http\Controllers\AuthController;
 
 
 Route::controller(BooksController::class)->group(function () {
-    Route::get('/index' ,"index");
-    Route::post('/addBooks' ,"addBook");
-    Route::get('/showBook/{id}' ,"showBook");
-    Route::delete('/deleteBook/{id}' ,"deleteBook");
-    Route::put('/updateBook/{id}' ,"updateBook");
+    Route::get('/index' ,"index")->middleware('permission:show every Book');
+    Route::post('/addBooks' ,"addBook")->middleware('permission:add book');
+    Route::get('/showBook/{id}' ,"showBook")->middleware('permission:show Book');
+    Route::delete('/deleteBook/{id}' ,"deleteBook")->middleware('permission:delete my book'||'permission:delete every book');
+    Route::put('/updateBook/{id}' ,"updateBook")->middleware('permission:edit my book'||'permission:edit every book');
 });
 Route::controller(CategoriesController::class)->group(function () {
-    Route::get('/displayCategories' , 'displayCategories');
-    Route::post('/addCategory' , "addCategory");
-    Route::get('/showCategory/{id}' ,"showCategory");
-    Route::delete('/deleteCategory/{id}' ,  "deleteCategory");
-    Route::put('/updateCategory/{id}' , "updateCategory");
+    Route::get('/displayCategories' , 'displayCategories')->middleware('permission:show categories');
+    Route::get('/showCategory/{id}' ,"showCategory")->middleware('permission:show category');
+    Route::post('/addCategory' , "addCategory")->middleware('permission:add category');
+    Route::put('/updateCategory/{id}' , "updateCategory")->middleware('permission:edit category');
+    Route::delete('/deleteCategory/{id}' ,  "deleteCategory")->middleware('permission:delete category');
 });
 
 Route::controller(AuthController::class)->group(function () {

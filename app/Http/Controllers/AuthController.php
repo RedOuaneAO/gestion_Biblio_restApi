@@ -31,7 +31,6 @@ class AuthController extends Controller
 
         $token = Auth::login($user);
         return response()->json([
-            'status' => 'success',
             'message' => 'User created successfully',
             'user' => $user,
             'authorisation' => [
@@ -48,7 +47,6 @@ class AuthController extends Controller
             'password' => 'required|string',
         ]);
         $credentials = $request->only('email', 'password');
-
         $token = Auth::attempt($credentials);
         if (!$token) {
             return response()->json([
@@ -90,7 +88,7 @@ class AuthController extends Controller
     }
     public function updateProfile(Request $request){
         $user=Auth::user(); 
-        $user->update([
+                $user->update([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
