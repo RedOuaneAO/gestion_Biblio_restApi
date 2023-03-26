@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BooksController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\PermissionController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -40,4 +42,16 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('refresh', 'refresh');
     Route::put('updateProfile', 'updateProfile');
     // Route::get('me', 'me');
+});
+
+ // Roles
+Route::controller(RoleController::class)->group(function () {
+    Route::post('assign-role/{id}', 'assignRole')->middleware('permission:assign role');
+    Route::post('remove-role/{id}', 'removeRole')->middleware('permission:assign role');
+});
+
+  //Permissions
+Route::group(['controller' => PermissionController::class,'middleware'=>'auth:api'], function () {
+    Route::post('assign-permission/{role}','assignPermissions')->middleware('permission:assign permission');
+    Route::delete('remove-permission/{role}','removePermissions')->middleware('permission:assign permission');
 });
