@@ -16,7 +16,9 @@ class books extends Model
         'description',
         'price',
         'user_id',
-        'category_id'
+        'category_id',
+        'isbn',
+        'auteur'
     ];
     public function category(){
         return $this->belongsTo(categories::class);

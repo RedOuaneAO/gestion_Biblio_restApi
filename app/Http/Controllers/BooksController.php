@@ -22,7 +22,9 @@ class BooksController extends Controller
             'price'=>$req->price,
             'category_id'=>$req->category_id,
             'user_id'=>$req->user()->id,
-            'image'=>$imgName
+            'image'=>$imgName,
+            'isbn'=>$req->isbn,
+            'auteur'=>$req->auteur
         ]);
         return response()->json([
             'message' => "Book Has been added successfully!",
@@ -45,7 +47,9 @@ class BooksController extends Controller
             'price'=>$req->price,
             'category_id'=>$req->category_id,
             'user_id'=>$req->user()->id,
-            'image'=>$imgName
+            'image'=>$imgName,
+            'isbn'=>$req->isbn,
+            'auteur'=>$req->auteur
         ]);
         return response()->json(['message' => "the book has been updated successfully", 'book'=>$data]);
     }
