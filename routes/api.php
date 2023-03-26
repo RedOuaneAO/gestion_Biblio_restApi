@@ -40,7 +40,10 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('register', 'register');
     Route::post('logout', 'logout');
     Route::post('refresh', 'refresh');
-    Route::put('updateProfile', 'updateProfile');
+    Route::put('updateProfile', 'updateProfile')->middleware('permission:edit my profile');
+    Route::put('deleteProfile', 'deleteProfile')->middleware('permission:delete my profile');
+    Route::post('forgot', 'forgot');
+    Route::put('reset/{token}', 'reset')->name('reset.password.post');
     // Route::get('me', 'me');
 });
 

@@ -35,7 +35,7 @@ class RolesAndPermissionsSeeder extends Seeder
 
         // Create permissions for Profile
         Permission::create(['name' => 'edit my profile']);
-        Permission::create(['name' => 'edit every profile']);
+        // Permission::create(['name' => 'edit every profile']);
         Permission::create(['name' => 'delete my profile']);
         Permission::create(['name' => 'delete every profile']);
 
