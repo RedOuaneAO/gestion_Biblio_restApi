@@ -23,6 +23,7 @@ Route::controller(BooksController::class)->group(function () {
     Route::get('/showBook/{id}' ,"showBook")->middleware('permission:show Books');
     Route::delete('/deleteBook/{id}' ,"deleteBook")->middleware('permission:delete my book|permission:delete every book');
     Route::put('/updateBook/{id}' ,"updateBook")->middleware('permission:edit my book|permission:edit every book');
+    Route::get('filter/{category}','filter');
 });
 Route::controller(CategoriesController::class)->group(function () {
     Route::get('/displayCategories' , 'displayCategories')->middleware('permission:show categories');
