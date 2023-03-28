@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string("image");
             $table->string("isbn");
             $table->string("auteur");
+            $table->string("statut");
             $table->text('description');
             $table->float('price');
             $table->unsignedBigInteger('category_id');

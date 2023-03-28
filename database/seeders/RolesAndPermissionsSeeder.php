@@ -46,8 +46,7 @@ class RolesAndPermissionsSeeder extends Seeder
         Permission::create(['name' => 'delete role']);
         Permission::create(['name' => 'assign role']);
 
-        Role::create(['name' => 'admin'])
-            ->givePermissionTo(Permission::all());
+        Role::create(['name' => 'admin'])->givePermissionTo(Permission::all());
 
         Role::create(['name' => 'receptionist'])
             ->givePermissionTo(
@@ -63,7 +62,9 @@ class RolesAndPermissionsSeeder extends Seeder
         Role::create(['name' => 'user'])
             ->givePermissionTo(
                 'edit my profile',
-                'delete my profile'
+                'delete my profile',
+                'show Books'
             );
     }
+    
 }

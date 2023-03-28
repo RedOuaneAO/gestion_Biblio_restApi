@@ -16,6 +16,11 @@ class BooksController extends Controller
         ]);
     }
     public function addBook(Request $req){
+        $req->validate([
+            'title' => 'required||max:30',
+            'description' => 'required|string|max:255',
+            'statut'=>'in:available,unavailable,borrowed,Processing',
+        ]);
         $imgName=$req->file('image')->getClientOriginalName();
         $req->file('image')->move(public_path('img'), $imgName);
         $data=books::create([
@@ -26,7 +31,8 @@ class BooksController extends Controller
             'user_id'=>$req->user()->id,
             'image'=>$imgName,
             'isbn'=>$req->isbn,
-            'auteur'=>$req->auteur
+            'auteur'=>$req->auteur,
+            'statut'=>$req->statut
         ]);
         return response()->json([
             'message' => "Book Has been added successfully!",
@@ -52,9 +58,10 @@ class BooksController extends Controller
                 'category_id'=>$req->category_id,
                 'image'=>$imgName,
                 'isbn'=>$req->isbn,
-                'auteur'=>$req->auteur
+                'auteur'=>$req->auteur,
+                'statut'=>$req->statut
             ]);
-            return response()->json(['message' => "the book has been updated successfully", 'book'=>$data]);
+            return response()->json(['message' => "the book has been updated successfully"]);
         }
             return response()->json(['message' => "you don't have permission to update this book"]);
 
@@ -78,5 +85,10 @@ class BooksController extends Controller
         $category = categories::where('category', $category)->firstOrFail();
         $books = books::where('category_id', $category->id)->get();
         return response()->json($books);
+    }
+
+    public function test(){
+        $book=books::orderBy('price', 'desc')->get();
+        return $book;
     }
 }

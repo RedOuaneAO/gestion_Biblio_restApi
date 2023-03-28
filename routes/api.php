@@ -26,6 +26,7 @@ Route::controller(BooksController::class)->group(function () {
     Route::delete('/deleteBook/{id}' ,"deleteBook")->middleware('permission:delete my book|permission:delete every book');
     Route::put('/updateBook/{id}' ,"updateBook")->middleware('permission:edit my book|permission:edit every book');
     Route::get('filter/{category}','filter');
+    Route::get('/test','test');
 });
 Route::controller(CategoriesController::class)->group(function () {
     Route::get('/displayCategories' , 'displayCategories')->middleware('permission:show categories');
@@ -39,12 +40,10 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('login', 'login');
     Route::post('register', 'register');
     Route::post('logout', 'logout');
-    Route::post('refresh', 'refresh');
     Route::put('updateProfile', 'updateProfile')->middleware('permission:edit my profile');
-    Route::put('deleteProfile', 'deleteProfile')->middleware('permission:delete my profile');
+    Route::post('deleteProfile/{id}', 'deleteProfile')->middleware('permission:delete my profile|delete every profile');
     Route::post('forgot', 'forgot');
-    Route::put('reset/{token}', 'reset')->name('reset.password.post');
-    // Route::get('me', 'me');
+    Route::put('reset/{token}', 'reset');
 });
 
  // Roles
